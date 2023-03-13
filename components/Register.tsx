@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import Link from "next/link";
 import { IRegisterInput } from "@/types/types";
 import ErrorMessage from "./Common/ErrorMessage";
+import { useAuth } from "@/context/AuthContext";
 
 const Register = () => {
   // form validation
@@ -21,16 +22,22 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IRegisterInput>(formOptions);
-
+  const { signUp } = useAuth();
   // onSubmit handler
-  const onSubmit = (data: IRegisterInput) => console.log(data);
+  const onSubmit = async (data: IRegisterInput) => {
+    try {
+      await signUp(data);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="min-h-full py-20">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row w-10/12  bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-          <div className="w-full lg:w-1/2 flex flex-col justify-center p-12 bg-no-repeat bg-cover bg-center bg-black">
+          <div className="w-full lg:w-1/2 flex flex-col justify-center p-12 bg-no-repeat bg-cover bg-center bg-neutral-800">
             <h1 className="text-white text-5xl mb-3 font-semibold">
-              Gotta catch em all!
+              Wanna catch em all?
             </h1>
             <div>
               <p className="text-white text-lg">
@@ -42,8 +49,8 @@ const Register = () => {
             </div>
           </div>
           <div className="w-full lg:w-1/2 py-16 px-12">
-            <h2 className="text-3xl mb-4 font-bold">Register</h2>
-            <p className="mb-4 text-lg">
+            <h2 className="text-3xl mb-2 font-semibold">Register</h2>
+            <p className="mb-4 text-lg font-thin">
               Create your account. It should only take a minute!
             </p>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -51,7 +58,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Firstname"
-                  className="border border-gray-400 py-2 px-2 rounded w-full"
+                  className="border border-gray-300 py-2 px-2 rounded w-full"
                   {...register("firstname")}
                 />
                 {errors?.firstname?.message ? (
@@ -62,7 +69,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Lastname"
-                  className="border border-gray-400 py-2 px-2 rounded w-full"
+                  className="border border-gray-300 py-2 px-2 rounded w-full"
                   {...register("lastname")}
                 />
                 {errors?.lastname?.message ? (
@@ -73,7 +80,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Email"
-                  className="border border-gray-400 py-2 px-2 w-full rounded"
+                  className="border border-gray-300 py-2 px-2 w-full rounded"
                   {...register("email")}
                 />
                 {errors?.email?.message ? (
@@ -84,7 +91,7 @@ const Register = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  className="border border-gray-400 py-2 px-2 w-full rounded"
+                  className="border border-gray-300 py-2 px-2 w-full rounded"
                   {...register("password")}
                 />
                 {errors?.password?.message ? (
@@ -95,7 +102,7 @@ const Register = () => {
                 <input
                   type="password"
                   placeholder="Confirm Password"
-                  className="border border-gray-400 py-2 px-2 w-full rounded"
+                  className="border border-gray-300 py-2 px-2 w-full rounded"
                   {...register("confirmPass")}
                 />
                 {errors?.confirmPass?.message ? (
@@ -104,7 +111,7 @@ const Register = () => {
               </div>
 
               <input
-                className="w-full bg-purple-500 py-3 text-center text-white mt-10 rounded"
+                className="w-full bg-purple-500 py-3 text-center text-white mt-10 rounded cursor-pointer"
                 type="submit"
                 value="Register"
               />

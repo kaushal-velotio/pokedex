@@ -10,3 +10,8 @@ export interface ILoginInput {
   email: string;
   password: string;
 }
+
+export interface UserType {
+  email: string | null;
+  uid: string | null;
+}
