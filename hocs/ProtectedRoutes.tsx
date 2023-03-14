@@ -16,13 +16,12 @@ const ProtectedRoutes = ({
   let isUnProtectedRoute = unprotectedRoutes.indexOf(router.pathname) !== -1;
   //if logged in and accessing not protected routes -> goto /dashboard
   if (isBrowser() && userLoaded && isAuthenticated && isUnProtectedRoute) {
-    router.push("/dashboard");
+    router.push("/pokemons");
   }
   //if not logged in and accessing protected routes -> goto /login
   else if (isBrowser() && userLoaded && !isAuthenticated && isProtectedRoute) {
     router.push("/login");
   }
-
   return <>{children}</>;
 };
 

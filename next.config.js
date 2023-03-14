@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["tecdn.b-cdn.net"],
+    domains: ["tecdn.b-cdn.net", "assets.pokemon.com"],
   },
 };
 

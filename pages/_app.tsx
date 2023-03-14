@@ -4,17 +4,24 @@ import ProtectedRoutes from "@/hocs/ProtectedRoutes";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 export default function App({ Component, pageProps, router }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
+
   return (
     <AuthContextProvider>
       <QueryClientProvider client={queryClient}>
-        <ProtectedRoutes router={router}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ProtectedRoutes>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ProtectedRoutes router={router}>
+            <Layout title="PokeDex">
+              <Component {...pageProps} />
+            </Layout>
+          </ProtectedRoutes>
+        </Hydrate>
       </QueryClientProvider>
     </AuthContextProvider>
   );

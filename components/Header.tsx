@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import Image from "next/image";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,10 +46,17 @@ const SearchBar = () => {
 const Header = () => {
   const { logOut } = useAuth();
   const router = useRouter();
-
   return (
-    <div className=" text-white py-10 px-20 flex justify-between items-center">
-      <div className="text-2xl font-medium">PokeDex</div>
+    <div className=" text-white py-10 px-20 flex justify-between items-center sticky top-0 bg-white bg-opacity-20">
+      <div className="flex items-center">
+        <span className="text-3xl font-medium mr-2">PokeDex</span>
+        <Image
+          height={20}
+          width={40}
+          src={"/pokeball-png-45330.png"}
+          alt={""}
+        />
+      </div>
       {protectedRoutes.includes(router.pathname) ? (
         <>
           <SearchBar />
@@ -68,6 +76,11 @@ const Header = () => {
             </div>
           </div>
         </>
+      ) : null}
+      {router.pathname === "/pokemons/[id]" ? (
+        <Link href='/pokemons'  className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md">
+          View All
+        </Link >
       ) : null}
     </div>
   );
