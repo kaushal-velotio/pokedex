@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import Header from "./Header";
 const Layout = ({
   title,

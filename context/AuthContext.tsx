@@ -5,20 +5,16 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { auth, db } from "../firebase/firebase";
-import { ILoginInput, IRegisterInput, UserType } from "@/types/types";
-import { doc, setDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import { UserType } from "@/types/types";
 const AuthContext = createContext({});
 
 export const useAuth = () => useContext<any>(AuthContext);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
+  const [userFavs, setUserFavs] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -35,26 +31,20 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       }
     });
     setLoading(false);
-
     return () => unsubscribe();
   }, []);
 
-  const signUp = ({ firstname, lastname, password, email }: IRegisterInput) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const logIn = ({ email, password }: ILoginInput) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const logOut = async () => {
-    setUser({ email: null, uid: null });
-    setUserLoaded(false);
-    await signOut(auth);
-  };
-
   return (
-    <AuthContext.Provider value={{ user, userLoaded, signUp, logIn, logOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        userLoaded,
+        searchQuery,
+        setSearchQuery,
+        userFavs,
+        setUserFavs,
+      }}
+    >
       {loading ? null : children}
     </AuthContext.Provider>
   );

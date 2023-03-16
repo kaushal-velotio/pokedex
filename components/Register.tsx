@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import Link from "next/link";
 import { IRegisterInput } from "@/types/types";
 import ErrorMessage from "./Common/ErrorMessage";
-import { useAuth } from "@/context/AuthContext";
+import { signUp } from "@/store/firebaseHelpers";
 
 const Register = () => {
   // form validation
@@ -22,7 +22,6 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IRegisterInput>(formOptions);
-  const { signUp } = useAuth();
   // onSubmit handler
   const onSubmit = async (data: IRegisterInput) => {
     try {

@@ -18,3 +18,10 @@ export interface Pokemon {
   name: string;
   url: string;
 }
+export interface IUser {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  favorites: string[];
+}

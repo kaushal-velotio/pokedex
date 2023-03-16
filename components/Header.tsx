@@ -4,8 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Image from "next/image";
+import { logOut } from "@/store/firebaseHelpers";
 
-const SearchBar = () => {
+const SearchBar = ({
+  setGlobalQuery,
+}: {
+  setGlobalQuery: (query: string) => void;
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
   return (
     <div>
@@ -16,7 +21,10 @@ const SearchBar = () => {
               <input
                 type="text"
                 className="px-5 w-full rounded-md rounded-r-none text-neutral-900 focus:outline-none"
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setGlobalQuery(e.target.value);
+                }}
                 value={searchQuery}
               />
               <button className="bg-neutral-900  px-6 text-lg py-3 rounded-r-md font-semibold">
@@ -44,7 +52,7 @@ const SearchBar = () => {
 };
 
 const Header = () => {
-  const { logOut } = useAuth();
+  const { setSearchQuery } = useAuth();
   const router = useRouter();
   return (
     <div className=" text-white py-10 px-20 flex justify-between items-center sticky top-0 bg-white bg-opacity-20">
@@ -59,7 +67,7 @@ const Header = () => {
       </div>
       {protectedRoutes.includes(router.pathname) ? (
         <>
-          <SearchBar />
+          <SearchBar setGlobalQuery={setSearchQuery} />
           <div className="flex">
             <Link
               className="cursor-pointer px-4 py-2 bg-purple-600 rounded-md mr-2"
@@ -78,9 +86,12 @@ const Header = () => {
         </>
       ) : null}
       {router.pathname === "/pokemons/[id]" ? (
-        <Link href='/pokemons'  className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md">
-          View All
-        </Link >
+        <Link
+          href="/pokemons"
+          className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md"
+        >
+          {"<-"} View All
+        </Link>
       ) : null}
     </div>
   );

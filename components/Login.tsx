@@ -5,11 +5,10 @@ import * as Yup from "yup";
 import Link from "next/link";
 import { ILoginInput } from "@/types/types";
 import ErrorMessage from "./Common/ErrorMessage";
-import { useAuth } from "@/context/AuthContext";
+import { logIn } from "@/store/firebaseHelpers";
 
 const Login = () => {
   // form validation
-  const { logIn } = useAuth();
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Email is invalid"),
     password: Yup.string().required("Password is required"),
@@ -39,7 +38,7 @@ const Login = () => {
             </h1>
             <div>
               <p className="text-white text-lg">
-                Don't have an account?{" "}
+                Do not have an account?{" "}
                 <Link className="text-purple-500" href="/register">
                   Sign Up
                 </Link>

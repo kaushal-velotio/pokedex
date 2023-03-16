@@ -11,7 +11,6 @@ import {
 } from "@tanstack/react-query";
 export default function App({ Component, pageProps, router }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
-
   return (
     <AuthContextProvider>
       <QueryClientProvider client={queryClient}>
