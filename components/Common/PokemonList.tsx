@@ -1,18 +1,16 @@
-import { useAuth } from "@/context/AuthContext";
-import { Pokemon } from "@/types/types";
-import React from "react";
-import PokemonCard from "../Dashboard/PokemonCard";
+import PokemonCard from "@components/Dashboard/PokemonCard";
+import { useAuth } from "@context/AuthContext";
+import { PokemonListProps } from "@customTypes/types";
 
-const PokemonList = ({ list }: { list: Pokemon[] }) => {
+function PokemonList({ pList }: PokemonListProps) {
   const { user, userFavs } = useAuth();
   return (
     <div className="container mx-auto p-6 mt-6 rounded-md overflow-scroll mb-6 grid lg:grid-cols-4 gap-12 md:grid-cols-2">
-      {list?.map((pokemon, index) => {
+      {pList.map((pokemon, index) => {
         return (
           <PokemonCard
             pokemon={pokemon}
             key={pokemon.name}
-            index={index + 1}
             favs={userFavs}
             uid={user.uid}
           />
@@ -20,6 +18,6 @@ const PokemonList = ({ list }: { list: Pokemon[] }) => {
       })}
     </div>
   );
-};
+}
 
 export default PokemonList;

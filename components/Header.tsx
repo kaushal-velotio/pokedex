@@ -1,20 +1,17 @@
-import {
-  showFavoritesBtnForRoutes,
-  showSearchBarForRoutes,
-  showViewAllBtnForRoutes,
-} from "@/constants/const";
-import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Image from "next/image";
-import { logOut } from "@/store/firebaseHelpers";
+import { useAuth } from "@context/AuthContext";
+import {
+  showFavoritesBtnForRoutes,
+  showSearchBarForRoutes,
+  showViewAllBtnForRoutes,
+} from "@constants/const";
+import { logOut } from "@firebase/firebaseHelpers";
+import { SearchBarProps } from "@customTypes/types";
 
-const SearchBar = ({
-  setGlobalQuery,
-}: {
-  setGlobalQuery: (query: string) => void;
-}) => {
+function SearchBar({ setGlobalQuery }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState("");
   return (
     <div>
@@ -53,9 +50,9 @@ const SearchBar = ({
       </form>
     </div>
   );
-};
+}
 
-const Header = () => {
+function Header() {
   const { setSearchQuery } = useAuth();
   const router = useRouter();
   return (
@@ -102,7 +99,7 @@ const Header = () => {
                 width={20}
                 src={"/back.png"}
                 alt={""}
-              />{" "}
+              />
               View All
             </Link>
 
@@ -117,6 +114,6 @@ const Header = () => {
       </>
     </div>
   );
-};
+}
 
 export default Header;

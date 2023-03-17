@@ -3,8 +3,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { auth, db } from "../firebase/firebase";
-import { ILoginInput, IRegisterInput, IUser, UserType } from "@/types/types";
+import { auth, db } from "./firebase";
+import { ILoginInput, IRegisterInput, IUser } from "@customTypes/types";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 export const signUp = ({

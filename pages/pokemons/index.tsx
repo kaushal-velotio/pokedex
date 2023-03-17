@@ -1,4 +1,4 @@
-import Dashboard from "@/components/Dashboard/Dashboard";
+import Dashboard from "@components/Dashboard/Dashboard";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 
 // async method that fetches all pokemons and adding an image link to each object
@@ -19,7 +19,7 @@ const getAllPokemons = async () => {
 
 const DashboardPage = () => {
   const { data } = useQuery(["allPokemons"], getAllPokemons);
-  return <Dashboard pokemons={data} />;
+  return <Dashboard pList={data} />;
 };
 
 export default DashboardPage;

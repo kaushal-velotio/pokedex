@@ -1,7 +1,5 @@
+import PokemonDetail from "@components/PokemonDetail";
 import { GetStaticProps } from "next";
-import React from "react";
-
-import PokemonDetail from "@/components/PokemonDetail";
 const getPokemonDetail = async (id: string) => {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);

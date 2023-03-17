@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Link from "next/link";
-import { IRegisterInput } from "@/types/types";
 import ErrorMessage from "./Common/ErrorMessage";
-import { signUp } from "@/store/firebaseHelpers";
+import { IRegisterInput } from "@customTypes/types";
+import { signUp } from "@firebase/firebaseHelpers";
 
-const Register = () => {
+function Register() {
   // form validation
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Email is invalid"),
@@ -120,6 +120,6 @@ const Register = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Register;

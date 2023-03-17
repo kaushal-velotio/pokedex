@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IRegisterInput {
   firstname: string;
   lastname: string;
@@ -25,4 +27,22 @@ export interface IUser {
   lastname: string;
   email: string;
   favorites: string[];
+}
+export interface ErrorMessageProps {
+  message: string;
+}
+export interface PokemonListProps {
+  pList: Pokemon[];
+}
+export interface SearchBarProps {
+  setGlobalQuery: (query: string) => void;
+}
+export interface LayoutProps {
+  title: string;
+  children: ReactNode;
+}
+export interface PokemonCardProps {
+  pokemon: Pokemon;
+  favs: string[];
+  uid: string;
 }

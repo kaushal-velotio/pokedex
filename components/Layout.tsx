@@ -1,13 +1,7 @@
 import Head from "next/head";
-import React, { ReactNode } from "react";
-import Header from "./Header";
-const Layout = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) => {
+import Header from "@components/Header";
+import { LayoutProps } from "@customTypes/types";
+function Layout({ title, children }: LayoutProps) {
   return (
     <>
       <Head>
@@ -25,6 +19,6 @@ const Layout = ({
       </div>
     </>
   );
-};
+}
 
 export default Layout;

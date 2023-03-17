@@ -1,17 +1,17 @@
-import { useAuth } from "@/context/AuthContext";
-import { fetchUserDetails } from "@/store/firebaseHelpers";
-import { Pokemon } from "@/types/types";
+import PokemonList from "@components/Common/PokemonList";
+import { useAuth } from "@context/AuthContext";
+import { Pokemon, PokemonListProps } from "@customTypes/types";
 import React, { useEffect } from "react";
-import PokemonList from "../Common/PokemonList";
+import { fetchUserDetails } from "@firebase/firebaseHelpers";
 
-const Dashboard = ({ pokemons }: { pokemons: Pokemon[] }) => {
+function Dashboard({ pList }: PokemonListProps) {
   const { searchQuery, user, setUserFavs, pokemonList, setPokemonList } =
     useAuth();
-  let filteredPokemons = [...pokemons];
+  let filteredPokemons = [...pList];
 
   // filtering pokemons based on the search query
   if (searchQuery?.length) {
-    filteredPokemons = pokemons?.filter((pokemon: Pokemon) => {
+    filteredPokemons = pList.filter((pokemon: Pokemon) => {
       return pokemon.name.includes(searchQuery);
     });
   }
@@ -28,10 +28,10 @@ const Dashboard = ({ pokemons }: { pokemons: Pokemon[] }) => {
   }, [user]);
 
   useEffect(() => {
-    if (!pokemonList?.length && pokemons?.length) setPokemonList(pokemons);
-  }, [pokemons]);
+    if (!pokemonList?.length && pList.length) setPokemonList(pList);
+  }, [pList]);
 
-  return <PokemonList list={filteredPokemons} />;
-};
+  return <PokemonList pList={filteredPokemons} />;
+}
 
 export default Dashboard;

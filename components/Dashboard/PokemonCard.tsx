@@ -1,24 +1,14 @@
-import { useAuth } from "@/context/AuthContext";
-import { updateFavorites } from "@/store/firebaseHelpers";
-import { Pokemon } from "@/types/types";
+import { useAuth } from "@context/AuthContext";
+import { PokemonCardProps } from "@customTypes/types";
+import { updateFavorites } from "@firebase/firebaseHelpers";
 import Image from "next/image";
 import Link from "next/link";
 
-const PokemonCard = ({
-  pokemon,
-  index,
-  favs,
-  uid,
-}: {
-  pokemon: Pokemon;
-  index: number;
-  favs: string[];
-  uid: string;
-}) => {
+function PokemonCard({ pokemon, favs, uid }: PokemonCardProps) {
   const { setUserFavs } = useAuth();
   const addToFavorites = () => {
     let newFavs = [];
-    if (favs?.includes(pokemon.name)) {
+    if (favs.includes(pokemon.name)) {
       newFavs = [...favs.filter((fav) => fav !== pokemon.name)];
       setUserFavs(newFavs);
     } else {
@@ -51,7 +41,7 @@ const PokemonCard = ({
             Show More
           </Link>
           <div onClick={addToFavorites} className="text-white cursor-pointer">
-            {favs?.includes(pokemon.name) ? (
+            {favs.includes(pokemon.name) ? (
               <Image
                 height={20}
                 width={40}
@@ -66,6 +56,6 @@ const PokemonCard = ({
       </div>
     </div>
   );
-};
+}
 
 export default PokemonCard;

@@ -1,7 +1,7 @@
-import React from "react";
+import { ErrorMessageProps } from "@customTypes/types";
 
-const ErrorMessage = ({ message }: { message: string }) => {
+function ErrorMessage({ message }: ErrorMessageProps) {
   return <div className="text-red-500 text-sm">{message}</div>;
-};
+}
 
 export default ErrorMessage;

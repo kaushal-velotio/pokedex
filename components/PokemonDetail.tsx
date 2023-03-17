@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-const PokemonDetail = ({ pokemon }: { pokemon: any }) => {
-  const pokemonType = pokemon?.types?.length
+function PokemonDetail({ pokemon }: { pokemon: any }) {
+  const pokemonType = pokemon.types?.length
     ? pokemon.types[0].type.name
     : "normal";
   const pokemonTypes = {
@@ -70,6 +70,6 @@ const PokemonDetail = ({ pokemon }: { pokemon: any }) => {
       </div>
     </div>
   );
-};
+}
 
 export default PokemonDetail;

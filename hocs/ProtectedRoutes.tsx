@@ -1,5 +1,5 @@
-import { protectedRoutes, unprotectedRoutes } from "@/constants/const";
-import { useAuth } from "@/context/AuthContext";
+import { protectedRoutes, unprotectedRoutes } from "@constants/const";
+import { useAuth } from "@context/AuthContext";
 import { Router } from "next/router";
 import React, { ReactNode } from "react";
 const isBrowser = () => typeof window !== "undefined";
