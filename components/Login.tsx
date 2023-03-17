@@ -46,7 +46,7 @@ const Login = () => {
             </div>
           </div>
           <div className="w-full lg:w-1/2 py-16 px-12">
-            <h2 className="text-3xl mb-2 font-bold">Login</h2>
+            <h2 className="text-3xl mb-2 font-semibold">Login</h2>
             <p className="mb-4 text-lg">Please enter your login credentials!</p>
 
             <form onSubmit={handleSubmit(onSubmit)}>

@@ -49,7 +49,7 @@ const Register = () => {
           </div>
           <div className="w-full lg:w-1/2 py-16 px-12">
             <h2 className="text-3xl mb-2 font-semibold">Register</h2>
-            <p className="mb-4 text-lg font-thin">
+            <p className="mb-4 text-lg">
               Create your account. It should only take a minute!
             </p>
             <form onSubmit={handleSubmit(onSubmit)}>

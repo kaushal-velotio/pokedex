@@ -14,6 +14,7 @@ export interface UserType {
   uid: string | null;
 }
 export interface Pokemon {
+  id: number;
   image: string;
   name: string;
   url: string;

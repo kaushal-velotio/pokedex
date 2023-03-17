@@ -9,7 +9,7 @@ const getAllPokemons = async () => {
     const pokemonList = results.map((res: any, index: number) => {
       const imgIndex = ("00" + (index + 1)).slice(-3);
       const image = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${imgIndex}.png`;
-      return { ...res, image };
+      return { ...res, image, id: index + 1 };
     });
     return pokemonList;
   } catch (error) {

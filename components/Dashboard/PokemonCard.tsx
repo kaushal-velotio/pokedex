@@ -46,7 +46,7 @@ const PokemonCard = ({
         <div className="flex justify-between items-center">
           <Link
             className="bg-purple-500 px-4 py-2 text-center text-white rounded cursor-pointer"
-            href={`/pokemons/${index}`}
+            href={`/pokemons/${pokemon.id}`}
           >
             Show More
           </Link>
