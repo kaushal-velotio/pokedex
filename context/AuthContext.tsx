@@ -7,12 +7,13 @@ import React, {
 } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase";
-import { UserType } from "@/types/types";
+import { Pokemon, UserType } from "@/types/types";
 const AuthContext = createContext({});
 
 export const useAuth = () => useContext<any>(AuthContext);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
+  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [userFavs, setUserFavs] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
@@ -43,6 +44,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         setSearchQuery,
         userFavs,
         setUserFavs,
+        pokemonList,
+        setPokemonList,
       }}
     >
       {loading ? null : children}

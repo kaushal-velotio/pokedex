@@ -3,7 +3,6 @@ import { updateFavorites } from "@/store/firebaseHelpers";
 import { Pokemon } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const PokemonCard = ({
   pokemon,
@@ -19,11 +18,11 @@ const PokemonCard = ({
   const { setUserFavs } = useAuth();
   const addToFavorites = () => {
     let newFavs = [];
-    if (favs.includes(index.toString())) {
-      newFavs = [...favs.filter((fav) => fav !== index.toString())];
+    if (favs?.includes(pokemon.name)) {
+      newFavs = [...favs.filter((fav) => fav !== pokemon.name)];
       setUserFavs(newFavs);
     } else {
-      newFavs = [...favs, index.toString()];
+      newFavs = [...favs, pokemon.name];
       setUserFavs(newFavs);
     }
     updateFavorites(uid, newFavs);
@@ -52,10 +51,15 @@ const PokemonCard = ({
             Show More
           </Link>
           <div onClick={addToFavorites} className="text-white cursor-pointer">
-            {favs.includes(`${index}`) ? (
-              <Image height={20} width={40} src={"/red-heart.png"} alt={""} />
+            {favs?.includes(pokemon.name) ? (
+              <Image
+                height={20}
+                width={40}
+                src={"/pokeball-png-45330.png"}
+                alt={""}
+              />
             ) : (
-              <Image className="opacity-20" height={20} width={40} src={"/heart.png"} alt={""} />
+              <div className="w-10 h-10 rounded-full bg-neutral-700"></div>
             )}
           </div>
         </div>

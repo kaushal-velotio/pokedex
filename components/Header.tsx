@@ -1,4 +1,8 @@
-import { protectedRoutes } from "@/constants/const";
+import {
+  showFavoritesBtnForRoutes,
+  showSearchBarForRoutes,
+  showViewAllBtnForRoutes,
+} from "@/constants/const";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -57,7 +61,7 @@ const Header = () => {
   return (
     <div className=" text-white py-10 px-20 flex justify-between items-center sticky top-0 bg-white bg-opacity-20">
       <div className="flex items-center">
-        <span className="text-3xl font-medium mr-2">PokeDex</span>
+        <span className="text-3xl font-bold mr-2">PokeDex</span>
         <Image
           height={20}
           width={40}
@@ -65,15 +69,17 @@ const Header = () => {
           alt={""}
         />
       </div>
-      {protectedRoutes.includes(router.pathname) ? (
-        <>
+      <>
+        {showSearchBarForRoutes?.includes(router.pathname) ? (
           <SearchBar setGlobalQuery={setSearchQuery} />
+        ) : null}
+        {showFavoritesBtnForRoutes?.includes(router.pathname) ? (
           <div className="flex">
             <Link
               className="cursor-pointer px-4 py-2 bg-purple-600 rounded-md mr-2"
               href="/favorites"
             >
-              Favorites
+              My Pokemons
             </Link>
 
             <div
@@ -83,16 +89,32 @@ const Header = () => {
               Logout
             </div>
           </div>
-        </>
-      ) : null}
-      {router.pathname === "/pokemons/[id]" ? (
-        <Link
-          href="/pokemons"
-          className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md"
-        >
-          {"<-"} View All
-        </Link>
-      ) : null}
+        ) : null}
+        {showViewAllBtnForRoutes?.includes(router.pathname) ? (
+          <div className="flex">
+            <Link
+              href="/pokemons"
+              className="cursor-pointer flex px-4 py-2 bg-purple-600 rounded-md mr-2"
+            >
+              <Image
+                className="mr-2"
+                height={5}
+                width={20}
+                src={"/back.png"}
+                alt={""}
+              />{" "}
+              View All
+            </Link>
+
+            <div
+              className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md"
+              onClick={() => logOut()}
+            >
+              Logout
+            </div>
+          </div>
+        ) : null}
+      </>
     </div>
   );
 };
