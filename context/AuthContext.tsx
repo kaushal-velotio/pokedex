@@ -5,12 +5,13 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onIdTokenChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase";
-import { Pokemon, UserType } from "@customTypes/types";
-const AuthContext = createContext({});
+import { AuthContextType, Pokemon, UserType } from "@customTypes/types";
+import nookies from "nookies";
+const AuthContext = createContext<AuthContextType | null>(null);
 
-export const useAuth = () => useContext<any>(AuthContext);
+export const useAuth = () => useContext<AuthContextType | null>(AuthContext);
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
@@ -20,15 +21,18 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onIdTokenChanged(auth, async (user) => {
       setUserLoaded(true);
       if (user) {
+        const token = await user.getIdToken();
         setUser({
           email: user.email,
           uid: user.uid,
         });
+        nookies.set(undefined, "token", token, { path: "/" });
       } else {
         setUser({ email: null, uid: null });
+        nookies.set(undefined, "token", "", { path: "/" });
       }
     });
     setLoading(false);

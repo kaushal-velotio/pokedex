@@ -1,11 +1,12 @@
 import { useAuth } from "@context/AuthContext";
-import { PokemonCardProps } from "@customTypes/types";
+import { AuthContextType, PokemonCardProps } from "@customTypes/types";
 import { updateFavorites } from "@firebase/firebaseHelpers";
 import Image from "next/image";
 import Link from "next/link";
+import { formatPokemonName } from "utils/utils";
 
 function PokemonCard({ pokemon, favs, uid }: PokemonCardProps) {
-  const { setUserFavs } = useAuth();
+  const { setUserFavs } = useAuth() as AuthContextType;
   const addToFavorites = () => {
     let newFavs = [];
     if (favs.includes(pokemon.name)) {
@@ -24,11 +25,11 @@ function PokemonCard({ pokemon, favs, uid }: PokemonCardProps) {
         width={400}
         className="rounded-t-lg"
         src={pokemon.image}
-        alt={""}
+        alt={"pokemonImg"}
       />
       <div className="p-6 bg-neutral-800 rounded-b-lg">
         <h5 className="mb-2 text-xl font-medium leading-tight text-neutral-50">
-          {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+          {formatPokemonName(pokemon)}
         </h5>
         <p className="mb-10 text-base text-neutral-400">
           Some brief information about the pokemon.

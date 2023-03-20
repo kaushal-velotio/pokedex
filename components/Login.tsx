@@ -1,30 +1,28 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import Link from "next/link";
-import ErrorMessage from "./Common/ErrorMessage";
 import { ILoginInput } from "@customTypes/types";
 import { logIn } from "@firebase/firebaseHelpers";
+import ErrorMessage from "@components/Common/ErrorMessage";
+import { useRouter } from "next/dist/client/router";
+import { loginFormValidationSchema } from "utils/validationSchemas";
+import { showToastMessage } from "utils/utils";
 
 function Login() {
-  // form validation
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Email is required").email("Email is invalid"),
-    password: Yup.string().required("Password is required"),
-  });
-  const formOptions = { resolver: yupResolver(validationSchema) };
+  const router = useRouter();
+  const formOptions = { resolver: yupResolver(loginFormValidationSchema) };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginInput>(formOptions);
 
-  // onSubmit handler
   const onSubmit = async (data: ILoginInput) => {
     try {
       await logIn(data);
-    } catch (error: any) {
-      console.log(error.message);
+      router.push("/pokemons");
+    } catch (error) {
+      showToastMessage("Invalid Credentials!");
     }
   };
   return (

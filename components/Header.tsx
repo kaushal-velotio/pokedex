@@ -3,13 +3,9 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Image from "next/image";
 import { useAuth } from "@context/AuthContext";
-import {
-  showFavoritesBtnForRoutes,
-  showSearchBarForRoutes,
-  showViewAllBtnForRoutes,
-} from "@constants/const";
+import { enumPokeDex } from "@constants/const";
 import { logOut } from "@firebase/firebaseHelpers";
-import { SearchBarProps } from "@customTypes/types";
+import { AuthContextType, SearchBarProps } from "@customTypes/types";
 
 function SearchBar({ setGlobalQuery }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,24 +49,14 @@ function SearchBar({ setGlobalQuery }: SearchBarProps) {
 }
 
 function Header() {
-  const { setSearchQuery } = useAuth();
+  const { setSearchQuery } = useAuth() as AuthContextType;
   const router = useRouter();
-  return (
-    <div className=" text-white py-10 px-20 flex justify-between items-center sticky top-0 bg-white bg-opacity-20">
-      <div className="flex items-center">
-        <span className="text-3xl font-bold mr-2">PokeDex</span>
-        <Image
-          height={20}
-          width={40}
-          src={"/pokeball-png-45330.png"}
-          alt={""}
-        />
-      </div>
-      <>
-        {showSearchBarForRoutes?.includes(router.pathname) ? (
+
+  const shouldShowSearchBarAndFavoritesButton = () => {
+    if (enumPokeDex.FAV_ROUTES?.includes(router.pathname)) {
+      return (
+        <>
           <SearchBar setGlobalQuery={setSearchQuery} />
-        ) : null}
-        {showFavoritesBtnForRoutes?.includes(router.pathname) ? (
           <div className="flex">
             <Link
               className="cursor-pointer px-4 py-2 bg-purple-600 rounded-md mr-2"
@@ -81,37 +67,67 @@ function Header() {
 
             <div
               className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md"
-              onClick={() => logOut()}
+              onClick={() => logOutHandler()}
             >
               Logout
             </div>
           </div>
-        ) : null}
-        {showViewAllBtnForRoutes?.includes(router.pathname) ? (
-          <div className="flex">
-            <Link
-              href="/pokemons"
-              className="cursor-pointer flex px-4 py-2 bg-purple-600 rounded-md mr-2"
-            >
-              <Image
-                className="mr-2"
-                height={5}
-                width={20}
-                src={"/back.png"}
-                alt={""}
-              />
-              View All
-            </Link>
+        </>
+      );
+    }
+    return null;
+  };
 
-            <div
-              className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md"
-              onClick={() => logOut()}
-            >
-              Logout
-            </div>
+  const shouldShowViewAllButton = () => {
+    if (enumPokeDex.VIEW_ALL_ROUTES?.includes(router.pathname)) {
+      return (
+        <div className="flex">
+          <Link
+            href="/pokemons"
+            className="cursor-pointer flex px-4 py-2 bg-purple-600 rounded-md mr-2"
+          >
+            <Image
+              className="mr-2"
+              height={5}
+              width={20}
+              src={"/back.png"}
+              alt={""}
+            />
+            View All
+          </Link>
+
+          <div
+            className="cursor-pointer px-4 py-2 bg-neutral-800 rounded-md"
+            onClick={() => logOut()}
+          >
+            Logout
           </div>
-        ) : null}
-      </>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const logOutHandler = async () => {
+    try {
+      await logOut();
+      router.push("/login");
+    } catch (error) {}
+  };
+
+  return (
+    <div className=" text-white py-10 px-20 flex justify-between items-center sticky top-0 bg-white bg-opacity-20">
+      <div className="flex items-center">
+        <span className="text-3xl font-bold mr-2">PokeDex</span>
+        <Image
+          height={20}
+          width={40}
+          src={"/pokeball-png-45330.png"}
+          alt={"logo"}
+        />
+      </div>
+      {shouldShowSearchBarAndFavoritesButton()}
+      {shouldShowViewAllButton()}
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import PokemonDetail from "@components/PokemonDetail";
 import { GetStaticProps } from "next";
+import { myFetch } from "utils/utils";
 const getPokemonDetail = async (id: string) => {
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const jsonRes = await response.json();
+    const jsonRes = await myFetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const imgIndex = ("00" + id).slice(-3);
     const image = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${imgIndex}.png`;
     return { ...jsonRes, image };

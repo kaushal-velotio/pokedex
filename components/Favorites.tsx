@@ -1,9 +1,10 @@
 import { useAuth } from "@context/AuthContext";
 import React, { useEffect, useState } from "react";
 import PokemonList from "@components/Common/PokemonList";
-import { Pokemon } from "@customTypes/types";
+import { AuthContextType, Pokemon } from "@customTypes/types";
+
 function Favorites() {
-  const { userFavs, pokemonList } = useAuth();
+  const { userFavs, pokemonList } = useAuth() as AuthContextType;
   const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState<Pokemon[]>([]);
   useEffect(() => {

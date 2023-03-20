@@ -1,5 +1,6 @@
-export const unprotectedRoutes = ["/login", "/register"];
-export const protectedRoutes = ["/pokemons", "/favorites"];
-export const showSearchBarForRoutes = ["/pokemons"];
-export const showFavoritesBtnForRoutes = ["/pokemons"];
-export const showViewAllBtnForRoutes = ["/pokemons/[id]", "/favorites"];
+const showFavoritesBtnForRoutes = ["/pokemons"];
+const showViewAllBtnForRoutes = ["/pokemons/[id]", "/favorites"];
+export const enumPokeDex = Object.freeze({
+  FAV_ROUTES: showFavoritesBtnForRoutes,
+  VIEW_ALL_ROUTES: showViewAllBtnForRoutes,
+});

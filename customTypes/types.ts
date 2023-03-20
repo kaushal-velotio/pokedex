@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface IRegisterInput {
   firstname: string;
@@ -45,4 +45,14 @@ export interface PokemonCardProps {
   pokemon: Pokemon;
   favs: string[];
   uid: string;
+}
+export interface AuthContextType {
+  user: UserType;
+  userLoaded: boolean;
+  searchQuery: string;
+  setSearchQuery: Dispatch<SetStateAction<string>>;
+  userFavs: string[];
+  setUserFavs: Dispatch<SetStateAction<string[]>>;
+  pokemonList: Pokemon[];
+  setPokemonList: Dispatch<SetStateAction<Pokemon[]>>;
 }

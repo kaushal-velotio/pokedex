@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import { formatPokemonName } from "utils/utils";
+
 function PokemonDetail({ pokemon }: { pokemon: any }) {
   const pokemonType = pokemon.types?.length
     ? pokemon.types[0].type.name
@@ -15,8 +17,9 @@ function PokemonDetail({ pokemon }: { pokemon: any }) {
   const getAbilities = () => {
     let res = "";
     pokemon.abilities.forEach((a: any, i: number) => {
-      if (i + 1 === pokemon.abilities.length) res += `${a.ability.name}`;
-      else {
+      if (i + 1 === pokemon.abilities.length) {
+        res += `${a.ability.name}`;
+      } else {
         res += `${a.ability.name}, `;
       }
     });
@@ -33,7 +36,7 @@ function PokemonDetail({ pokemon }: { pokemon: any }) {
       </div>
       <div className="p-6 flex flex-col max-w-lg">
         <div className="text-6xl mb-8 text-neutral-50 font-semibold">
-          {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+          {formatPokemonName(pokemon)}
         </div>
         <div
           className={`text-l px-4 py-1 w-fit font-semibold text-center rounded-md text-neutral-50 ${
