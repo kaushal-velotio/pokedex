@@ -6,7 +6,7 @@ import {
 import { auth, db } from "./firebase";
 import { ILoginInput, IRegisterInput, IUser } from "@customTypes/types";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { showToastMessage } from "utils/utils";
+import { showToastMessage } from "@utils/utils";
 
 export const signUp = ({
   firstname,

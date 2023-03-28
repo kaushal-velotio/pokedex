@@ -118,7 +118,9 @@ function Header() {
   return (
     <div className=" text-white py-10 px-20 flex justify-between items-center sticky top-0 bg-white bg-opacity-20">
       <div className="flex items-center">
-        <span className="text-3xl font-bold mr-2">PokeDex</span>
+        <span data-testid="logo" className="text-3xl font-bold mr-2">
+          PokeDex
+        </span>
         <Image
           height={20}
           width={40}

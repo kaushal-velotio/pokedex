@@ -17,12 +17,10 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [userFavs, setUserFavs] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [userLoaded, setUserLoaded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
-      setUserLoaded(true);
       if (user) {
         const token = await user.getIdToken();
         setUser({
@@ -43,7 +41,6 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
-        userLoaded,
         searchQuery,
         setSearchQuery,
         userFavs,

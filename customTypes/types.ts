@@ -48,7 +48,6 @@ export interface PokemonCardProps {
 }
 export interface AuthContextType {
   user: UserType;
-  userLoaded: boolean;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
   userFavs: string[];
