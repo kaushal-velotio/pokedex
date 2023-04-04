@@ -36,6 +36,7 @@ export interface PokemonListProps {
 }
 export interface SearchBarProps {
   setGlobalQuery: (query: string) => void;
+  globalQuery: string;
 }
 export interface LayoutProps {
   title: string;

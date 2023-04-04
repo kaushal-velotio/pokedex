@@ -26,6 +26,8 @@ function PokemonCard({ pokemon, favs, uid }: PokemonCardProps) {
         className="rounded-t-lg"
         src={pokemon.image}
         alt={"pokemonImg"}
+        blurDataURL="data:..."
+        placeholder="blur"
       />
       <div className="p-6 bg-neutral-800 rounded-b-lg">
         <h5 className="mb-2 text-xl font-medium leading-tight text-neutral-50">

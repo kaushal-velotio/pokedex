@@ -7,8 +7,7 @@ import { enumPokeDex } from "@constants/const";
 import { logOut } from "@firebase/firebaseHelpers";
 import { AuthContextType, SearchBarProps } from "@customTypes/types";
 
-function SearchBar({ setGlobalQuery }: SearchBarProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+function SearchBar({ setGlobalQuery , globalQuery}: SearchBarProps) {
   return (
     <div>
       <form>
@@ -19,10 +18,9 @@ function SearchBar({ setGlobalQuery }: SearchBarProps) {
                 type="text"
                 className="px-5 w-full rounded-md rounded-r-none text-neutral-900 focus:outline-none"
                 onChange={(e) => {
-                  setSearchQuery(e.target.value);
                   setGlobalQuery(e.target.value);
                 }}
-                value={searchQuery}
+                value={globalQuery}
               />
               <button className="bg-neutral-900  px-6 text-lg py-3 rounded-r-md font-semibold">
                 <svg
@@ -49,14 +47,14 @@ function SearchBar({ setGlobalQuery }: SearchBarProps) {
 }
 
 function Header() {
-  const { setSearchQuery } = useAuth() as AuthContextType;
+  const { searchQuery, setSearchQuery } = useAuth() as AuthContextType;
   const router = useRouter();
 
   const shouldShowSearchBarAndFavoritesButton = () => {
     if (enumPokeDex.FAV_ROUTES?.includes(router.pathname)) {
       return (
         <>
-          <SearchBar setGlobalQuery={setSearchQuery} />
+          <SearchBar globalQuery={searchQuery} setGlobalQuery={setSearchQuery} />
           <div className="flex">
             <Link
               className="cursor-pointer px-4 py-2 bg-purple-600 rounded-md mr-2"
